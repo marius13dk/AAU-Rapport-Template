@@ -1,0 +1,131 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[format=plain,labelfont={bf,it},textfont=it]{caption}
+\usepackage[utf8]{inputenc}
+\usepackage[danish]{babel} % ændres til engelsk hvis der skrives engelsk
+\usepackage{csquotes}
+\usepackage{ragged2e}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{tikz}
+    \usetikzlibrary{calc,patterns,decorations.pathmorphing,decorations.markings,matrix,fadings,shadows.blur,shapes}
+\usepackage{hyperref}
+\usepackage[framed,thmmarks]{ntheorem}
+\usepackage{mathtools}
+\usepackage{textcomp}
+\usepackage{siunitx}
+    \sisetup{output-decimal-marker = {,}}
+\usepackage[inner=20mm,outer=20mm,]{geometry}
+\usepackage{titlesec}
+    \titleformat*{\section}{\normalfont\Large\bfseries}
+    \titleformat*{\subsection}{\normalfont\large\bfseries}
+    \titleformat*{\subsubsection}{\normalfont\normalsize\bfseries}
+\usepackage{float}
+    \let\origdoublepage\cleardoublepage
+    \newcommand{\clearemptydoublepage}{%
+    \clearpage
+    {\pagestyle{empty}\origdoublepage}%
+    }
+    \let\cleardoublepage\clearemptydoublepage
+\usepackage{fancyhdr}
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt} 
+    \fancyhead[RE]{\small\nouppercase\leftmark} 
+    \fancyhead[LO]{\small\nouppercase\rightmark} 
+    \fancyfoot[LE,RO]{\thepage} 
+    \raggedbottom
+\usepackage{calc}
+\usepackage[backend=biber,style=numeric,]{biblatex}
+    \addbibresource{bib/mybib.bib}
+\usepackage[danish]{varioref}
+\usepackage{blkarray, bigstrut}
+\usepackage{tabularx, booktabs}
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+%% Mine tilføejsler
+\usepackage{array}
+\usepackage{mathdots}
+\usepackage{yhmath}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{gensymb}
+\usepackage{tabularx}
+\usepackage[textsize=tiny]{todonotes}
+\usepackage{lipsum} % til dummy tekst blokke
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subcaption}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ¤¤ Kapiteludssende ¤¤ %
+\definecolor{aaublue}{RGB}{33,26,82}% dark blue
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{numbercolor}{gray}{0.7}		% Definerer en farve til brug til kapiteludseende
+\newif\ifchapternonum
+
+\makechapterstyle{jenor}{					% Definerer kapiteludseende %frem til ...
+  \renewcommand\beforechapskip{0pt}
+  \renewcommand\printchaptername{}
+  \renewcommand\printchapternum{}
+  \renewcommand\printchapternonum{\chapternonumtrue}
+  \renewcommand\chaptitlefont{\fontfamily{pbk}\fontseries{db}\fontshape{n}\fontsize{25}{35}\selectfont\raggedleft}
+  \renewcommand\chapnumfont{\fontfamily{pbk}\fontseries{m}\fontshape{n}\fontsize{1in}{0in}\selectfont\color{numbercolor}}
+  \renewcommand\printchaptertitle[1]{
+    \noindent
+    \ifchapternonum
+    \begin{tabularx}{\textwidth}{X}
+    {\let\\\newline\chaptitlefont ##1\par} 
+    \end{tabularx}
+    \par\vskip-2.5mm\hrule
+    \else
+    \begin{tabularx}{\textwidth}{Xl}
+    {\parbox[b]{\linewidth}{\chaptitlefont ##1}} & \raisebox{-15pt}{\chapnumfont \thechapter}
+   \end{tabularx}
+    \par\vskip2mm\hrule
+    \fi
+  }
+}											% ... her
+
+\chapterstyle{jenor}						% Valg af kapiteludseende - Google 'memoir chapter styles' for alternativer
+
+% ¤¤ Sidehoved/sidefod ¤¤ %
+\makepagestyle{Uni}							% Definerer sidehoved og sidefod udseende frem til ...
+\makepsmarks{Uni}{%
+	\createmark{chapter}{left}{shownumber}{}{. \ }
+	\createmark{section}{right}{shownumber}{}{. \ }
+	\createplainmark{toc}{both}{\contentsname}
+	\createplainmark{lof}{both}{\listfigurename}
+	\createplainmark{lot}{both}{\listtablename}
+	\createplainmark{bib}{both}{\bibname}
+	\createplainmark{index}{both}{\indexname}
+	\createplainmark{glossary}{both}{\glossaryname}
+}
+\nouppercaseheads											% Ingen Caps oenskes
+
+\makeevenhead{Uni}{M5-4-E20}{}{\leftmark}				    % Lige siders sidehoved (\makeevenhead{Navn}{Venstre}{Center}{Hoejre})
+\makeoddhead{Uni}{\rightmark}{}{Aalborg Universitet Esbjerg}% Ulige siders sidehoved (\makeoddhead{Navn}{Venstre}{Center}{Hoejre})
+\makeevenfoot{Uni}{\thepage}{}{}							% Lige siders sidefod (\makeevenfoot{Navn}{Venstre}{Center}{Hoejre})
+\makeoddfoot{Uni}{}{}{\thepage}								% Ulige siders sidefod (\makeoddfoot{Navn}{Venstre}{Center}{Hoejre})
+\makeheadrule{Uni}{\textwidth}{0.5pt}						% Tilfoejer en streg under sidehovedets indhold
+\makefootrule{Uni}{\textwidth}{0.5pt}{1mm}					% Tilfoejer en streg under sidefodens indhold
+
+\copypagestyle{Unichap}{Uni}								% Der dannes en ny style til kapitelsider
+\makeoddhead{Unichap}{}{}{}									% Sidehoved defineres som blank på kapitelsider
+\makeevenhead{Unichap}{}{}{}
+\makeheadrule{Unichap}{\textwidth}{0pt}
+\aliaspagestyle{chapter}{Unichap}							% Den ny style vaelges til at gaelde for chapters
+															% ... her
+															
+\pagestyle{Uni}												% Valg af sidehoved og sidefod (benyt 'plain' for ingen sidehoved/fod)
+
+%%%% EGNE KOMMANDOER %%%%
+% ¤¤ Specielle tegn ¤¤ %
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+\newcommand{\dec}{^{\circ}}									% '\dec' returnerer et gradtegn (husk $$ udenfor aligns)
+\newcommand{\decC}{^{\circ}\text{C}}						% '\decC' returnerer et gradtegn + 'C' (husk $$ udenfor aligns)
+\newcommand{\mdot}{\cdot}										% '\m' returnerer et gangetegn
+
+
+

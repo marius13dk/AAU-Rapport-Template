@@ -1,0 +1,37 @@
+\documentclass[a4paper,11pt,fleqn,twoside,openany]{memoir}
+\input{setup/preamble.tex} % package inclusion and set up of the document
+\begin{document}
+\justifying
+\setlength{\parindent}{0pt}
+\setcounter{secnumdepth}{3}
+
+%frontmatter
+\pagestyle{empty} %disable headers and footers
+\pagenumbering{roman} %use roman page numbering in the frontmatter
+\input{formalia/forside.tex}
+\input{formalia/colophon.tex}
+\input{formalia/titelblad.tex}
+\input{formalia/forord.tex}
+\clearpage
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+\tableofcontents
+\addtocontents{toc}{\protect\setcounter{tocdepth}{3}}
+
+\pagestyle{fancy} %enable headers and footers again
+\cleardoublepage
+% Hoveddokument
+\pagenumbering{arabic} %use arabic page numbering in the mainmatter
+%kapitler
+\input{kapitler/introduktion_1}
+\input{kapitler/metodik_1}
+\input{kapitler/applikation_1}
+\input{kapitler/konklusion}
+
+% kildeliste
+\label{bib:mybibliotek}
+\printbibliography[heading=bibintoc]
+% Appendiks
+\appendix
+\input{appendiks/appendiks_A}
+\input{appendiks/appendiks_B}
+\end{document}
